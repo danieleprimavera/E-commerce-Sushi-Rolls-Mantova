@@ -1,0 +1,28 @@
+{% extends "rolls/common.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-lg p-4 rounded" style="max-width: 450px; width: 100%;">
+    <h2 class="text-center mb-4">Accedi</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg">Entra</button>
+      </div>
+    </form>
+
+    <hr class="my-4">
+
+    <p class="text-center mb-2">
+      Non hai un account?
+      <a href="{% url 'signup' %}" class="text-decoration-none fw-bold">Registrati qui</a>
+    </p>
+
+    <div class="text-center">
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-2">⬅ Torna alla Home</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

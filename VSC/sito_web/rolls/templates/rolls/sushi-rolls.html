@@ -1,0 +1,27 @@
+{% extends 'rolls/common.html'%}
+{% block content %} 
+ <div class="container my-5 text-center" style="max-width:580px">
+        <h1>Il Sushi migliore di Mantova!</h1>
+        <p class="lead">Concediti ora una favolosa pausa ricca di sapore e di carboidrati. E'
+            scientificamente provato: i nostri sushi rolls ti aiutano a performare meglio nella vita di tutti i giorni!
+        </p>
+        <a href="{% url 'contattaci' %}" type="button"  class="btn btn-secondary">Contattaci</a>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for roll in rolls %}
+            <div class="col-sm">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{roll.immagine.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{roll.nome}} Roll</h5>
+                        <p class="card-text">€{{roll.prezzo}} </p>
+                        <a href="{% url 'aggiungi_al_carrello' roll.id %}" class="btn btn-primary">Ordina ora!</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

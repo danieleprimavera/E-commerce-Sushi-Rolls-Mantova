@@ -1,0 +1,49 @@
+{% extends 'rolls/common.html'%}
+{% block content %}
+<div class="container my-4">
+    <h2>Il tuo carrello</h2>
+    {% if items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Prodotto</th>
+                <th>Prezzo unitario</th>
+                <th>Quantità</th>
+                <th>Subtotale</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for it in items %}
+            <tr>
+                <td>{{ it.roll.nome }}</td>
+                <td>€{{ it.prezzo_unitario }}</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'aggiorna_carrello' it.roll.id 'remove' %}">-</a>
+                    <span class="mx-2">{{ it.quantita }}</span>
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'aggiorna_carrello' it.roll.id 'add' %}">+</a>
+                </td>
+                <td>€{{ it.subtotal|floatformat:2 }}</td>
+                <td><a class="btn btn-sm btn-danger" href="{% url 'aggiorna_carrello' it.roll.id 'delete' %}">Rimuovi</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <h4>Totale: €{{ totale|floatformat:2 }}</h4>
+        <a href="{% url 'checkout' %}" class="btn btn-success">Acquista ora</a>
+    </div>
+
+    <!-- Pulsante home sotto il totale -->
+    <div class="mt-3">
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary">⬅ Torna alla Home</a>
+    </div>
+
+    {% else %}
+    <p>Il carrello è vuoto.</p>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-3">⬅ Torna alla Home</a>
+    {% endif %}
+</div>
+
+{% endblock %}

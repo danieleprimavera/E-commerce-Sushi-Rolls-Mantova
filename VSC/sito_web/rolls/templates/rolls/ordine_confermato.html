@@ -1,0 +1,8 @@
+{% extends 'rolls/common.html'%}
+{% block content %}
+<div class="container my-5 text-center">
+    <h2>Grazie per il tuo ordine! ✅</h2>
+    <p>Numero ordine: {{ ordine.id }}</p>
+    <a class="btn btn-primary" href="{% url 'home' %}">Torna ai prodotti</a>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "rolls/common.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5" style="max-width:600px;">
+    <h2>Contattaci</h2>
+
+    {% if messages %}
+        <!-- Mostra messaggio di conferma -->
+        {% for message in messages %}
+            <div class="alert alert-success mt-3">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <!-- Pulsante per tornare alla home -->
+        <a href="{% url 'home' %}" class="btn btn-primary mt-3">Torna alla Home</a>
+    {% else %}
+        <!-- Form di contatto -->
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="email" class="form-label">Indirizzo Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="messaggio" class="form-label">Chiedici tutto ciò che vuoi</label>
+                <textarea class="form-control" id="messaggio" name="messaggio" rows="3" required></textarea>
+            </div>
+
+            <!-- Pulsanti -->
+            <button type="submit" class="btn btn-success">Invia</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Torna alla Home</a>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

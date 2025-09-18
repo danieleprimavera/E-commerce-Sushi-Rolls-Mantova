@@ -1,0 +1,32 @@
+{% extends "rolls/common.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Risultati per: "{{ query }}"</h2>
+
+    {% if results %}
+        <div class="row">
+            {% for roll in results %}
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="{{ roll.immagine.url }}" class="card-img-top" alt="{{ roll.nome }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ roll.nome }} Roll</h5>
+                        <p class="card-text">{{ roll.descrizione }}</p>
+                        <p class="card-text">€ {{ roll.prezzo }}</p>
+                        <a href="{% url 'add_to_cart' roll.id %}" class="btn btn-primary">➕ Aggiungi al carrello</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">Nessun prodotto trovato.</p>
+    {% endif %}
+
+    <!-- Bottone per tornare alla home -->
+    <div class="mt-3">
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary">⬅ Torna alla Home</a>
+    </div>
+</div>
+{% endblock %}

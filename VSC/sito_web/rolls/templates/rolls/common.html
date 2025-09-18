@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Mantova-Sushi</title>
+
+    <style>
+        /* Layout per sticky footer */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1; /* occupa lo spazio centrale */
+        }
+        footer {
+            background-color: #212529;
+            color: white;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+                {% load static %}
+                <img src="{% static 'rolls/logo.png' %}" alt="Logo" width="32" height="32" class="d-inline-block align-top me-2">
+                Mantova-Sushi
+            </a>
+
+            <!-- Barra di ricerca -->
+            <div class="d-flex justify-content-center flex-grow-1" style="margin-left: 8%;">
+                <form class="d-flex" method="get" action="{% url 'search' %}" style="width: 40%;">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Cerca sushi..." aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">🔍</button>
+                </form>
+            </div>
+
+            <!-- Login / Carrello -->
+            <div class="d-flex ms-auto">
+                <a href="{% url 'carrello' %}" class="btn btn-outline-light position-relative me-2">
+                    🛒 Carrello
+                    {% if request.session.cart %}
+                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                        {{ request.session.cart|length }}
+                    </span>
+                    {% endif %}
+                </a>
+                {% if user.is_authenticated %}
+                    <span class="navbar-text me-2">Ciao, {{ user.first_name|default:user.username }}</span>
+                    <a href="{% url 'logout' %}" class="btn btn-light">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-light me-2">Login</a>
+                    <a href="{% url 'signup' %}" class="btn btn-warning">Registrati</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENUTO -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+<!-- Footer -->
+    <footer class="bg-dark text-light text-center text-lg-start mt-5">
+        <div class="container p-4">
+            <div class="row">
+                <!-- Info azienda -->
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Mantova-Sushi</h5>
+                    <p>
+                        Il miglior sushi a Mantova, fresco e preparato al momento.  
+                        Ordina online e gusta i nostri piatti direttamente a casa tua.
+                    </p>
+                </div>
+
+                <!-- Link utili -->
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Link utili</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="{% url 'home' %}" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="{% url 'carrello' %}" class="text-light text-decoration-none">Carrello</a></li>
+                        <li><a href="{% url 'login' %}" class="text-light text-decoration-none">Login</a></li>
+                        <li><a href="{% url 'signup' %}" class="text-light text-decoration-none">Registrati</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contatti -->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contatti</h5>
+                    <p>Email: info@mantovasushi.it</p>
+                    <p>Telefono: +39 3492154381</p>
+                    <div>
+                        <a href="#" class="text-light me-3">🌐 Facebook</a>
+                        <a href="#" class="text-light me-3">📷 Instagram</a>
+                        <a href="#" class="text-light">🐦 Twitter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center p-3 bg-secondary">
+            © 2025 Mantova-Sushi | Tutti i diritti riservati
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
