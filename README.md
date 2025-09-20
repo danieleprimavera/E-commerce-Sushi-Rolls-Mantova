@@ -1,3 +1,3 @@
 # E-commerce-Sushi-Rolls-Mantova
 
-E-commerce di Sushi Rolls a Mantova creato da Daniele Primavera
+E-commerce of Sushi Rolls in Mantova created by Daniele Primavera
